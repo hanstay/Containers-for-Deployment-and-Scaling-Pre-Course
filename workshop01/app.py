@@ -2,7 +2,6 @@ from flask import Flask
 from flask import render_template
 from gen_message import WordGen
 
-app = Flask(__name__)
 possible_messages = [
 "Logic will get you from A to B. Imagination will take you everywhere.",
 "There are 10 kinds of people. Those who know binary and those who don't.",
@@ -12,6 +11,8 @@ so simple that there are obviously no deficiencies and the other is to make it \
 "It's not that I'm so smart, it's just that I stay with problems longer.",
 "It is pitch dark. You are likely to be eaten by a grue.",
 ]
+
+app = Flask(__name__)
 
 @app.route('/')
 def home_page():
@@ -23,6 +24,6 @@ def home_page():
     return render_template('index.html', someText=message)
 
 
-# start 
+# start flask app
 if __name__ == "__main__":
     app.run(debug=True)
