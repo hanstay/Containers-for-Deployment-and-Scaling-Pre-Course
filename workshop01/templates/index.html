@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Dov Bear</title>
+		<link rel="stylesheet" href="/static/style.css">
+	</head>
+	<body>
+		<div class="center-it">
+			<h1><code>{{ instance_name }} {{ instance_hash }}</code></h1>
+		</div>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        Containers for Deploying and Scaling Apps Course Pre Assignment
-    </title>
-    <link rel="stylesheet" href="static/css/style.css" type="text/css" />
-</head>
+		{% for i in dovs %}
+			<div class="center-it">
+				<img src="/static/images/dov{{ i }}.gif">
+			</div>
+		{% endfor %}
 
-<body>
-    <div class="hero-image">
-        <div class="hero-text">
-            <h1>Containers for Deploying and Scaling Apps Course Pre Assignment</h1>
-            <p>{{someText}}</p>
-            <p>
-                Repository:
-                <a
-                    href="https://github.com/hanstay/Containers-for-Deployment-and-Scaling-Pre-Course">https://github.com/hanstay/Containers-for-Deployment-and-Scaling-Pre-Course
-                </a>
-            </p>
-        </div>
-    </div>
-</body>
-
+	</body>
 </html>
