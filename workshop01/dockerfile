@@ -1,6 +1,8 @@
 # base image to use
 FROM python:3.8
 
+# main dir is this
+
 # attaching a label to my image
 LABEL name=workshop01
 
@@ -8,6 +10,12 @@ LABEL name=workshop01
 COPY requirements.txt .
 COPY templates templates
 COPY public public
+COPY main.py .
+COPY requirements.txt .
+COPY main.py .
+COPY utils.py .
+COPY run.sh .
+
 
 # install deps
 RUN pip install requirements.txt
