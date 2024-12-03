@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dov-config-map
+  namespace: myns
+  labels:
+    app: dov
+data:
+  INSTANCE_NAME: from config map
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dov-secret
+  namespace: myns
+  labels:
+    app: dov
+data:
+  INSTANCE_HASH: aGkgdGhlcmU=
+

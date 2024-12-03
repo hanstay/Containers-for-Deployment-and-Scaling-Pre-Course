@@ -1,0 +1,5 @@
+echo "starting"
+
+kc run debug -ti --rm -n default --image nicolaka/netshoot -- /bin/bash
+
+nslookup -q=srv _web._TCP.xx
