@@ -1,0 +1,6 @@
+kubectl apply -f config.yaml
+kubectl apply -f deploy-db.yaml
+kubectl apply -f deploy-app.yaml
+
+# service entry port is set to 80
+kubectl port-forward -nbggns svc/bgg-app-svc 8080:80

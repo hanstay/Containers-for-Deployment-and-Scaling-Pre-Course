@@ -17,11 +17,18 @@ spec:
       namespace: bggns
       labels:
         app: bgg-db
-    spec:
+    spec:    
+      volumes:
+        - name: bgg-vol
+          persistentVolumeClaim:
+            claimName: bgg-db-pvc
       containers:
       - name: bgg-db-container
         imagePullPolicy: IfNotPresent
         image:  stackupiss/bgg-database:v1
+        volumeMounts:
+          - name:  bgg-vol
+            mountPath: /var/lib/mysql
         ports:
           - containerPort: 3306
 ---
@@ -33,6 +40,7 @@ metadata:
   labels:
     app: bgg-db
 spec:
+  # expose this db internally
   type: ClusterIP
   selector:
     app: bgg-db

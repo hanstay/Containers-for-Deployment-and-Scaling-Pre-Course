@@ -60,6 +60,3 @@ spec:
   - name: db-svc-port 
     port: 80
     targetPort: 3000
-
-# forward command due to entry point selection above 
-#  kc port-forward svc/bgg-app-svc -nbggns 8080:5000 

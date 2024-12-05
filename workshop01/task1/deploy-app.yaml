@@ -1,0 +1,88 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: dov-deploy 
+  namespace: dovns
+  labels: 
+    app: dov
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels: 
+      app: dov 
+      env: test
+  template: 
+    metadata: 
+      name: dov-pod
+      namespace: dovns
+      labels: 
+        app: dov
+        env: test
+    spec:
+      containers:
+      - name: dov-container 
+        image: chukmunnlee/dov-bear:v4
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: dov-cm
+        - secretRef:
+            name: dov-secret
+        resources:
+          requests:
+            memory: 512M
+            cpu: 200m
+          limits:
+            memory: 512M
+            cpu: 200m 
+        ports:
+        - containerPort: 3000
+        # replaced by setting env params from config map
+        #env:
+        #- name: INSTANCE_NAME
+        #  value: "my dov bear"
+        #- name: INSTANCE_HASH
+        #  valueFrom: 
+        #    fieldRef:
+        #      fieldPath: status.podIP
+
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: dov-svc 
+  namespace: dovns 
+  labels: 
+    app: dov 
+spec:
+  type: ClusterIP
+  selector: 
+    app: dov
+  ports: 
+  - name: web
+    port: 8080 
+    targetPort: 3000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fortune-app-ing
+  namespace: dovns
+  labels:
+    app: dov
+spec:
+  # controller class name
+    ingressClassName: nginx
+    rules:
+    - host: dov-209.38.56.108.nip.io
+      http:
+        paths: 
+        - path: /
+          pathType: Prefix # anything matching '/'
+          backend:
+            service:
+              name: dov-svc
+              port: 
+                number: 8080

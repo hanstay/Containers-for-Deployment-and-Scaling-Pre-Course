@@ -1,0 +1,30 @@
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: dov-hpa
+  namespace: dovns
+  labels:
+    app: dov
+spec:
+  # min,max replicas will override deployment setting
+  minReplicas: 1
+  maxReplicas: 4
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: dov-deploy 
+  metrics:
+    # for metrics-server in use, only Resource can be selected
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 35
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 35

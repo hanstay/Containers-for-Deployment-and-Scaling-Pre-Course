@@ -1,0 +1,47 @@
+apiVersion: kustomize.config.k8s.io/v1beta1 
+kind: Kustomization
+
+resources:
+- ../../base
+
+namespace: dovns
+
+namePrefix: dev 
+
+labels:
+  - pairs:
+      env: dev
+    includeSelectors: true
+    includeTemplates: true
+
+replicas: 
+- name: dov-deploy
+  count: 1
+
+images:
+- name: chukmunnlee/dov-bear
+  newTag: v5
+  namespace: dovns
+
+# # on generate, the config maps and secrets generated will be tagged with a hash for uniqueness
+# configMapGenerator:
+#   - name: dov-cm
+#     behavior: create
+#     literals:
+#     - INSTANCE_NAME: "Generated from cm gen" 
+
+# # secrets will be auto-hashed 
+# secretGenerator:
+#   - name: dov-secret
+#     behavior: create
+#     literals:
+#     - API_KEY: my-api-key
+#     - INSTANCE_HASH: aGkgdGhlcmU=
+
+# patches:
+#   - target:
+#       group: apps
+#       version: v1
+#       kind: Deployment
+#       name: dov-deploy
+#     path: patch.yaml

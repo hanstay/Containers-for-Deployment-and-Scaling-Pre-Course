@@ -1,0 +1,8 @@
+Start a namespace
+    k apply -f namespace.yaml
+
+Configure env and secrets
+    k apply -f config.yaml
+
+Configure deployment, service and ingress
+    k apply -f deploy-app.yaml
